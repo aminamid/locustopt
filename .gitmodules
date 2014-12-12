@@ -1,0 +1,3 @@
+[submodule "mutil"]
+	path = mutil
+	url = https://github.com/aminamid/mutil
