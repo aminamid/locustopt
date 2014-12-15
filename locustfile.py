@@ -2,6 +2,7 @@ from time import time
 from random import choice
 from locust import TaskSet, task, HttpLocust, Locust
 
+from common import measure
 import pop
 import smtp
 import imap
@@ -15,6 +16,7 @@ class UserBehavior(TaskSet):
         pass 
 
     @task(1)
+    @measure
     def pop(self):
         cl=pop.Client('jpn-zaq50.openwave.com',11110)
         user = choice(cfg_popuser_list)
@@ -25,12 +27,14 @@ class UserBehavior(TaskSet):
         cl.quit()
 
     @task(1)
+    @measure
     def smtp(self):
         cl=smtp.Client('jpn-zaq50.openwave.com',11025)
         user = choice(cfg_address_list)
         cl.sendmail(user, user, "test")
 
     @task(1)
+    @measure
     def imap(self):
         cl=imap.Client('jpn-zaq50.openwave.com',11143)
         user = choice(cfg_imapuser_list)
